@@ -224,11 +224,11 @@ async def acompletion_with_retry(
         stream = kwargs["stream"]
         if stream:
             event_source = aconnect_sse(
-                llm.async_client, "POST", "/chat/completions", json=kwargs
+                llm.async_client, "POST", "/agents/completions", json=kwargs
             )
             return _aiter_sse(event_source)
         else:
-            response = await llm.async_client.post(url="/chat/completions", json=kwargs)
+            response = await llm.async_client.post(url="/agents/completions", json=kwargs)
             await _araise_on_error(response)
             return response.json()
 
@@ -480,7 +480,7 @@ class ChatMistralAI(BaseChatModel):
 
                 def iter_sse() -> Iterator[Dict]:
                     with connect_sse(
-                        self.client, "POST", "/chat/completions", json=kwargs
+                        self.client, "POST", "/agents/completions", json=kwargs
                     ) as event_source:
                         _raise_on_error(event_source.response)
                         for event in event_source.iter_sse():
@@ -490,7 +490,7 @@ class ChatMistralAI(BaseChatModel):
 
                 return iter_sse()
             else:
-                response = self.client.post(url="/chat/completions", json=kwargs)
+                response = self.client.post(url="/agents/completions", json=kwargs)
                 _raise_on_error(response)
                 return response.json()
 
