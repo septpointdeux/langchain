@@ -217,6 +217,8 @@ async def acompletion_with_retry(
 
     @retry_decorator
     async def _completion_with_retry(**kwargs: Any) -> Any:
+        logger.warning("_async completion_with_retry 1")
+
         if "stream" not in kwargs:
             kwargs["stream"] = False
         stream = kwargs["stream"]
@@ -468,6 +470,9 @@ class ChatMistralAI(BaseChatModel):
 
         @retry_decorator
         def _completion_with_retry(**kwargs: Any) -> Any:
+
+            logger.warning("_completion_with_retry 1")
+
             if "stream" not in kwargs:
                 kwargs["stream"] = False
             stream = kwargs["stream"]
