@@ -516,7 +516,7 @@ class ChatMistralAI(BaseChatModel):
         else:
             api_key_str = self.mistral_api_key
 
-        print("MISTRAL validate_environment")
+        logger.warning("MISTRAL validate_environment")
 
         # todo: handle retries
         base_url_str = (
