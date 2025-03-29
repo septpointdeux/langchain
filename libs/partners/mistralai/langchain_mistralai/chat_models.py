@@ -516,11 +516,14 @@ class ChatMistralAI(BaseChatModel):
         else:
             api_key_str = self.mistral_api_key
 
+        print("MISTRAL validate_environment")
+
         # todo: handle retries
         base_url_str = (
             self.endpoint
             or os.environ.get("MISTRAL_BASE_URL")
             or "https://api.mistral.ai/v1"
+            or "https://api.mistral.ai/v1/agents/completions"
         )
         self.endpoint = base_url_str
         if not self.client:
